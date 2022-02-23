@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import { nanoid } from 'nanoid';
 import projectContext from './projectContext';
 import projectReducer from './projectReducer';
+import axiosClient from '../../config/axios'
 import {
     FORM_PROJECT,
     GET_PROJECTS,
@@ -9,22 +9,17 @@ import {
     FORM_VALIDATION,
     ACTUAL_PROJECT,
     DELETE_PROJECT,
+    ERROR_PROJECT,
 } from '../../types';
 
 const ProjectState = ({children}) => {
-
-    const projects = [
-        {id:1, name: "tienda virtual"},
-        {id:2, name: "intranet"},
-        {id:3, name: "Diseño de sitio Web"},
-        {id:4, name: "MERN"}
-    ]
 
     const initialState = {
         projects:[],
         form: false,
         errorForm: false,
-        project: null
+        project: null,
+        msg: null
     }
 
     // Dispatch para ejecutar las acciones
@@ -40,21 +35,46 @@ const ProjectState = ({children}) => {
     }
 
     // Get projects.
-    const getProjects = () => {
-        dispatch({
-            type: GET_PROJECTS,
-            payload: projects
-        })
+    const getProjects = async () => {
+        try {
+            const response = await axiosClient.get('/api/projects')
+            dispatch({
+                type: GET_PROJECTS,
+                payload: response.data.projects
+            })
+        } catch (error) {
+            const alert = {
+                msg: 'An error occurs when getting projects.',
+                category: 'alerta alerta-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
+        }
     }
 
     // Add new project.
-    const addProject = project => {
-        project.id = nanoid();
-        // Insert the project with a dispatch.
-        dispatch({
-            type: ADD_PROJECTS,
-            payload: project})
-    }
+    const addProject = async project => {
+
+        try {
+            const response = await axiosClient.post('/api/projects/',project);
+            console.log(response);
+            // Insert the project with a dispatch.
+            dispatch({
+                type: ADD_PROJECTS,
+                payload: response.data
+            })
+        } catch (error) {
+            const alert = {
+                msg: 'An error occurs when adding new project',
+                category: 'alerta alerta-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
+        }}
 
     // Check form for erros.
     const showError = () => {
@@ -72,11 +92,24 @@ const ProjectState = ({children}) => {
     }
 
     // Delete a project.
-    const deleteProject = projectId => {
-        dispatch({
-            type: DELETE_PROJECT,
-            payload: projectId
-        })
+    const deleteProject = async projectId => {
+        try {
+            // await axiosClient.delete(`/api/projects/${projectId}`);
+            await axiosClient.delete(`/api/projects/${1}`);
+            dispatch({
+                type: DELETE_PROJECT,
+                payload: projectId
+            })            
+        } catch (error) {
+            const alert = {
+                msg: 'An error occurs when deleting a project.',
+                category: 'alerta alerta-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
+        }
     }
 
     return (
@@ -86,12 +119,14 @@ const ProjectState = ({children}) => {
                 form: state.form,
                 errorForm: state.errorForm,
                 project:state.project,
+                msg:state.msg,
                 showForm,
                 getProjects,
                 addProject,
                 showError,
                 actualProject,
-                deleteProject
+                deleteProject,
+                
             }}
             
         >

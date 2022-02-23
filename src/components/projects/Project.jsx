@@ -19,11 +19,11 @@ const Project = ({ project }) => {
   };
 
   return (
-    <li key={project.id}>
+    <li key={project._id}>
       <button
         type="button"
         className="btn btn-blank"
-        onClick={() => selectProject(project.id)}
+        onClick={() => selectProject(project._id)}
       >
         {project.name}
       </button>

@@ -1,7 +1,27 @@
-import React,{useState} from 'react'
-import {Link} from 'react-router-dom';
+import React,{ useState, useContext, useEffect } from 'react'
+import {Link, useNavigate } from 'react-router-dom';
+import AlertContext from '../../context/alerts/alertContext';
+import AuthContext from '../../context/autentication/authContext';
 
 const Login = () => {
+    
+    let navigate = useNavigate();
+
+    const alertContext = useContext(AlertContext);
+    const {alert, showAlert} = alertContext;
+
+    const authContext = useContext(AuthContext);
+    const { userLogin, msg, authenticated  } = authContext;
+
+    // if user is already authenticated or a duplicated record.
+    useEffect(()=>{
+        if(authenticated){
+            navigate('/projects')
+        }
+        if(msg){
+            showAlert(msg.msg,'alerta-error')
+        }
+    },[ msg, authenticated, navigate ])
 
     // State to login.
     const [user, setUser] = useState({
@@ -24,13 +44,18 @@ const Login = () => {
         e.preventDefault();
 
         // Validating: No empty fields.
+        if(email.trim()===''|| password.trim()===''){
+            showAlert('All fields are required','alerta-error');
+            return
+        }
 
-
-        // throwing to action.
+        // To action.
+        userLogin(user);
     }
 
   return (
     <div className='form-usuario'>
+        {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
         <div className="contenedor-form sombra-dark">
             <h1>Iniciar Sesion</h1>
             <form onSubmit={handleSubmit}>

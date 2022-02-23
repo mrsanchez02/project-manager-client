@@ -55,7 +55,7 @@
     margin-top: 2rem;
     font-family: var(--headingFont);
     padding: 1.5rem;
-    font-size: 1.4;
+    font-size: 1.4rem;
     font-weight: 400;
     border-radius: .5rem;
     border: none;
@@ -86,6 +86,10 @@
     padding: 0;
     display: block;
     background-color: transparent;
+  }
+
+  .cerrar-sesion{
+    color: white;
   }
   
   @media (min-width: 768px) {
@@ -325,4 +329,35 @@
     margin-top: 2rem;
     display: block;
     opacity: .7;
+  }
+
+  .alerta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    font-family: var(--headingFont);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    text-align: center;
+    width: 100%;
+  }
+  @media (min-width:768px) {
+    .alerta {
+        width: auto;
+        top: 30px;
+        right: 10px;
+        left: auto;
+    }
+  }
+  
+  .alerta-ok {
+    background-color: rgb(109, 211, 109);
+    color: rgb(2, 103, 2);
+  }
+  .alerta-error {
+    background-color: rgb(230, 78, 78);
+    color: var(--blanco);
   }
