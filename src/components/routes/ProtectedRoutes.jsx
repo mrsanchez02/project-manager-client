@@ -10,6 +10,7 @@ const ProtectedRoutes = () => {
 
     useEffect(() => {
         authenticatedUser();
+    // eslint-disable-next-line
     }, [])
     
 

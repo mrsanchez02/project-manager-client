@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import React, { useContext, useEffect, useState } from 'react'
 import projectContext from '../../context/projects/projectContext';
 import taskContext from "../../context/tasks/taskContext";
@@ -57,9 +56,7 @@ const FormTask = () => {
 
     if(taskSelected===null){
       // add new task to the Task's state.
-      task.projectId = actualProject.id;
-      task.status = false;
-      task.id = nanoid();
+      task.project = actualProject._id;
       addTask(task);
     } else {
       // update existing task.

@@ -1,13 +1,13 @@
 import React, { useReducer } from "react";
 import TaskContext from './taskContext';
 import taskReducer from "./taskReducer";
+import axiosClient from '../../config/axios';
 
 import {
     TASK_PROJECT,
     ADD_TASK,
     CHECK_TASK,
     DELETE_TASK,
-    STATUS_TASK,
     ACTUAL_TASK,
     UPDATE_TASK,
     CLEAR_TASK,
@@ -16,24 +16,9 @@ import {
 
 const TaskState = ({children}) => {
     const initialState = {
-        tasks:[
-            {id: 1, name: "Elegir plataforma",status: true, projectId: 1},
-            {id: 2, name: "Elegir colores",status: false, projectId: 2},
-            {id: 3, name: "Elegir plataformas de pago",status: false, projectId: 3},
-            {id: 4, name: "Elegir hosting",status: true, projectId: 4},
-            {id: 5, name: "Elegir plataforma",status: true, projectId: 1},
-            {id: 6, name: "Elegir colores",status: false, projectId: 2},
-            {id: 7, name: "Elegir plataformas de pago",status: false, projectId: 3},
-            {id: 8, name: "Elegir plataforma",status: true, projectId: 4},
-            {id: 9, name: "Elegir colores",status: false, projectId: 1},
-            {id: 10, name: "Elegir plataformas de pago",status: false, projectId: 2},
-            {id: 11, name: "Elegir plataforma",status: true, projectId: 3},
-            {id: 12, name: "Elegir colores",status: false, projectId: 4},
-            {id: 13, name: "Elegir plataformas de pago",status: false, projectId: 3},
-        ],
-        tasksProject:null,
+        tasksProject:[],
         errorTask:false,
-        taskSelected:null
+        taskSelected:{}
     }
 
     // Crear dispatch y state;
@@ -42,19 +27,34 @@ const TaskState = ({children}) => {
     // Fn
 
     // Get Tasks from a project.
-    const getTasks = projectId => {
-        dispatch({
-            type:TASK_PROJECT,
-            payload: projectId
-        })
+    const getTasks = async project => {
+        console.log(project)
+        try {
+            const results = await axiosClient.get('/api/tasks',{ params: { project } });
+            console.log(results);
+            dispatch({
+                type:TASK_PROJECT,
+                payload: results.data.tasks
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //Add task to a selected project.
-    const addTask = task => {
-        dispatch({
-            type:ADD_TASK,
-            payload:task
-        })
+    const addTask = async task => { 
+        console.log(task);
+        try {
+            const results = await axiosClient.post('/api/tasks',task)
+            console.log(results)
+            dispatch({
+                type:ADD_TASK,
+                payload:task
+            })
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 
     // Check & verify task's field on FormTask component.
@@ -65,33 +65,36 @@ const TaskState = ({children}) => {
     }
 
     //Delete task.
-    const deleteTask = id => {
-        dispatch({
-            type: DELETE_TASK,
-            payload: id
-        })
+    const deleteTask = async (id,project) => {
+        try {
+            await axiosClient.delete(`/api/tasks/${id}`,{params:{ project }});
+            dispatch({
+                type: DELETE_TASK,
+                payload: id
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    //Switch tarea status.
-    const switchTaskStatus = task => {
-        dispatch({
-            type:STATUS_TASK,
-            payload:task
-        })
+    // Edit or update a task.
+    const updateTask = async task => {
+        try {
+            const results = await axiosClient.put(`/api/tasks/${task._id}`,task);
+            dispatch({
+                type:UPDATE_TASK,
+                payload: results.data.task
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Extract a task to edit.
     const saveActualTask = task => {
+        console.log(task)
         dispatch({
             type: ACTUAL_TASK,
-            payload: task
-        })
-    }
-
-    // Edit or update a task.
-    const updateTask = task => {
-        dispatch({
-            type:UPDATE_TASK,
             payload: task
         })
     }
@@ -104,7 +107,6 @@ const TaskState = ({children}) => {
     return (
         <TaskContext.Provider
             value={{
-                tasks:state.tasks,
                 tasksProject: state.tasksProject,
                 errorTask:state.errorTask,
                 taskSelected: state.taskSelected,
@@ -112,7 +114,6 @@ const TaskState = ({children}) => {
                 addTask,
                 verifyTask,
                 deleteTask,
-                switchTaskStatus,
                 saveActualTask,
                 updateTask,
                 clearTask

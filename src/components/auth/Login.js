@@ -21,6 +21,8 @@ const Login = () => {
         if(msg){
             showAlert(msg.msg,'alerta-error')
         }
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[ msg, authenticated, navigate ])
 
     // State to login.
