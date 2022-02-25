@@ -17,7 +17,9 @@ const FormTask = () => {
     if(taskSelected!==null){
       setTask(taskSelected)
     } else {
-      setTask({name:''})
+      setTask({
+        name:''
+      })
     }
   },[taskSelected])
 
@@ -27,7 +29,7 @@ const FormTask = () => {
   })
 
   // Extract task name.
-  const { name }=task;
+  const { name } = task;
   
   // if no projects selected...
   if(!project) return null;
@@ -70,7 +72,9 @@ const FormTask = () => {
     getTasks(actualProject.id);
 
     //Reset form
-    setTask({name:''})
+    setTask({
+      name:''
+    })
 
   }
 

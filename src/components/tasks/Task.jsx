@@ -17,7 +17,7 @@ const Task = ({task}) => {
   // Delete fn to delete task.
   const taskDelete = id => {
     deleteTask(id,actualProject._id)
-    getTasks(actualProject.id);
+    getTasks(actualProject._id);
   }
 
   // FN Switch task status.

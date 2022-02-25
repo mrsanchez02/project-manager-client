@@ -18,7 +18,7 @@ const TaskState = ({children}) => {
     const initialState = {
         tasksProject:[],
         errorTask:false,
-        taskSelected:{}
+        taskSelected:null
     }
 
     // Crear dispatch y state;
@@ -28,10 +28,9 @@ const TaskState = ({children}) => {
 
     // Get Tasks from a project.
     const getTasks = async project => {
-        console.log(project)
+
         try {
             const results = await axiosClient.get('/api/tasks',{ params: { project } });
-            console.log(results);
             dispatch({
                 type:TASK_PROJECT,
                 payload: results.data.tasks
@@ -92,7 +91,6 @@ const TaskState = ({children}) => {
 
     // Extract a task to edit.
     const saveActualTask = task => {
-        console.log(task)
         dispatch({
             type: ACTUAL_TASK,
             payload: task
@@ -101,14 +99,16 @@ const TaskState = ({children}) => {
 
     // Clear the selected task.
     const clearTask = () => {
-        dispatch({type:CLEAR_TASK})
+        dispatch({
+            type:CLEAR_TASK
+        })
     }
 
     return (
         <TaskContext.Provider
             value={{
                 tasksProject: state.tasksProject,
-                errorTask:state.errorTask,
+                errorTask: state.errorTask,
                 taskSelected: state.taskSelected,
                 getTasks,
                 addTask,

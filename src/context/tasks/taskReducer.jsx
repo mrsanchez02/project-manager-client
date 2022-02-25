@@ -44,7 +44,7 @@ const taskReducer = (state, action) => {
         case CLEAR_TASK:
             return {
                 ...state,
-                tasksProject:null
+                tasksSelected:null
             }
         default:
             return state;

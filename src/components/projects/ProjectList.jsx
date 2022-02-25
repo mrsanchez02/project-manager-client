@@ -30,7 +30,9 @@ const ProjectList = () => {
 
   return (
     <ul className='listado-proyectos'>
-      { alert ? ( <div className={`alerta ${alert.category}`}> {alert.msg} </div> ): null}
+
+      { alert ? ( <div className={`alerta ${alert.category}`}> {alert.msg} </div> ) : null }
+
       <TransitionGroup>
       {projects.map(project=> (
         <CSSTransition 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext,  } from 'react';
 import Task from './Task';
 import projectContext from '../../context/projects/projectContext';
 import taskContext from '../../context/tasks/taskContext';
@@ -21,7 +21,7 @@ const TaskList = () => {
   const [actualProject] = project;
 
   // Delete a project.
-  const onClickDelete = projectId => {
+  const onClickDelete = () => {
     deleteProject(actualProject._id)
   }
 
@@ -29,13 +29,13 @@ const TaskList = () => {
     <>
       <h2>Proyecto: {actualProject.name}</h2>
       <ul className='listado-tareas'>
-        {tasksProject.length === 0 
+        {tasksProject.length  === 0 
           ? (<li className='tarea'><p>No hay tareas </p></li>)
           : 
           <TransitionGroup>
             {tasksProject.map(task =>(
               <CSSTransition 
-                key={task._id}
+                key={task.id}
                 timeout={200}
                 classNames="tarea"
               >
