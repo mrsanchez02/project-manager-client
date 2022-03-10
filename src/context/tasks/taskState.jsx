@@ -42,10 +42,8 @@ const TaskState = ({children}) => {
 
     //Add task to a selected project.
     const addTask = async task => { 
-        console.log(task);
         try {
-            const results = await axiosClient.post('/api/tasks',task)
-            console.log(results)
+            await axiosClient.post('/api/tasks',task)
             dispatch({
                 type:ADD_TASK,
                 payload:task
