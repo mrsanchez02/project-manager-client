@@ -29,7 +29,6 @@ const AuthState = ({children}) => {
     const userRegistration = async data => {
         try {
             const response = await axiosClient.post('/api/users',data);
-            console.log(response.data);
             dispatch({
                 type: SUCCESSFUL_REGISTRATION,
                 payload: response.data
@@ -62,7 +61,6 @@ const AuthState = ({children}) => {
                 payload: response.data.user
             })
         } catch (error) {
-            console.log(error.response);
             dispatch({
                 type: ERROR_LOGIN
             })

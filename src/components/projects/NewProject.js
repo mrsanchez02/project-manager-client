@@ -52,7 +52,7 @@ const NewProject = () => {
             type='button'
             className='btn btn-block btn-primario'
             onClick={handleNewProjectClick}
-        >Nuevo Proyecto</button>
+        >New Project</button>
 
         {form
         ?
@@ -63,7 +63,7 @@ const NewProject = () => {
             <input
                 type='text'
                 className='input-text'
-                placeholder='Nombre proyecto'
+                placeholder='Project name'
                 name='name'
                 onChange={handleChange}
                 value={name}
@@ -71,12 +71,12 @@ const NewProject = () => {
             <input 
                 type='submit' 
                 className='btn btn-primario btn-block' 
-                value='Agregar proyecto'/>
+                value='Add project'/>
         </form>
         :
         null
         }
-        {errorForm ? <p className="mensaje error">El nombre del proyecto es obligatorio</p> : null}
+        {errorForm ? <p className="mensaje error">Project name is required</p> : null}
     </>
   )
 }

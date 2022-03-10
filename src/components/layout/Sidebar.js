@@ -8,7 +8,7 @@ const Sidebar = () => {
         <h1>MERN<span>Tasks</span></h1>
         <NewProject/>
         <div className="proyectos">
-            <h2>Tus proyectos</h2>
+            <h2>Your projects</h2>
             <ProjectList/>
         </div>
     </aside>

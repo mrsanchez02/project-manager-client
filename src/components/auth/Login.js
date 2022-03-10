@@ -59,7 +59,7 @@ const Login = () => {
     <div className='form-usuario'>
         {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
         <div className="contenedor-form sombra-dark">
-            <h1>Iniciar Sesion</h1>
+            <h1>Welcome</h1>
             <form onSubmit={handleSubmit}>
                 <div className="campo-form">
                     <label htmlFor="email">Email</label>
@@ -67,7 +67,7 @@ const Login = () => {
                         type="email"
                         id="email"
                         name="email"
-                        placeholder='Tu Email'
+                        placeholder='Your Email'
                         onChange={handleChange}
                         value={email}
                     />
@@ -78,17 +78,17 @@ const Login = () => {
                         type="password"
                         id="password"
                         name="password"
-                        placeholder='Tu Password'
+                        placeholder='Your Password'
                         onChange={handleChange}
                         value={password}
                     />
                 </div>
                 <div className="campo-form">
-                    <input type='submit' className='btn btn-primario btn-block' value="Iniciar Sesion"/>
+                    <input type='submit' className='btn btn-primario btn-block' value="Log in"/>
                 </div>
             </form>
             <Link to={'/new-account'} className='enlace-cuenta'>
-                Obtener cuenta
+                Not a user? Get new account!
             </Link>
         </div>
     </div>

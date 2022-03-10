@@ -14,13 +14,13 @@ const NewAccount = () => {
 
     // if user is already authenticated or a duplicated record.
     useEffect(()=>{
-        // if(authenticated){
-        //     navigate('/projects')
-        // }
+        if(authenticated){
+            navigate('/projects');
+        }
         if(msg){
             showAlert(msg.msg,'alerta-error')
         }
-    },[ msg, authenticated, navigate,showAlert ])
+    },[ msg, authenticated ])
 
 
     // State to login.
@@ -52,19 +52,19 @@ const NewAccount = () => {
             password.trim()==='' ||
             confirm.trim()==='' 
             ) {
-                showAlert('Todos los campos son obligatorios','alerta-error');
+                showAlert('All fileds required','alerta-error');
                 return
             }
 
         // Password minimo de 6 caracteres.
         if(password.length < 6) {
-            showAlert('Password minimo 6 caracteres','alerta-error')
+            showAlert('The password must contain at least 6 characters','alerta-error')
             return
         }
 
         // Los 2 password son iguales.
         if(password!==confirm) {
-            showAlert('Passwords no coinciden','alerta-error')
+            showAlert("Passwords doesn't match",'alerta-error')
             return
         }
 
@@ -74,21 +74,22 @@ const NewAccount = () => {
             email,
             password
         })
+        
     }
 
   return (
     <div className='form-usuario'>
         {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
         <div className="contenedor-form sombra-dark">
-            <h1>Obtener una cuenta</h1>
+            <h1>Get a new account</h1>
             <form onSubmit={handleSubmit}>
                 <div className="campo-form">
-                    <label htmlFor="name">Nombre</label>
+                    <label htmlFor="name">Name</label>
                     <input 
                         type="text"
                         id="name"
                         name="name"
-                        placeholder='Tu name'
+                        placeholder='Your name'
                         value={name}
                         onChange={handleChange}
                     />
@@ -99,7 +100,7 @@ const NewAccount = () => {
                         type="email"
                         id="email"
                         name="email"
-                        placeholder='Tu Email'
+                        placeholder='Your Email'
                         value={email}
                         onChange={handleChange}
                     />
@@ -110,28 +111,28 @@ const NewAccount = () => {
                         type="password"
                         id="password"
                         name="password"
-                        placeholder='Tu Password'
+                        placeholder='Your Password'
                         value={password}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="campo-form">
-                    <label htmlFor="confirmar">Confirmar Password</label>
+                    <label htmlFor="confirmar">Password confirm</label>
                     <input 
                         type="password"
                         id="confirm"
                         name="confirm"
-                        placeholder='Repite tu Password'
+                        placeholder='Repeat your Password'
                         value={confirm}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="campo-form">
-                    <input type='submit' className='btn btn-primario btn-block' value="Registrar"/>
+                    <input type='submit' className='btn btn-primario btn-block' value="Register"/>
                 </div>
             </form>
             <Link to={'/'} className='enlace-cuenta'>
-                volver a iniciar sesion
+                Back to loggin
             </Link>
         </div>
     </div>

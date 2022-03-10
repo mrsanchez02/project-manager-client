@@ -59,7 +59,6 @@ const ProjectState = ({children}) => {
 
         try {
             const response = await axiosClient.post('/api/projects/',project);
-            console.log(response);
             // Insert the project with a dispatch.
             dispatch({
                 type: ADD_PROJECTS,

@@ -7,8 +7,6 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 const ProjectList = () => {
 
   // Extract projects from initalState
-  // const projectStates = useContext(projectContext);
-  // const { msg, projects,getProjects } = projectStates;
   const ProjectContext = useContext(projectContext);
   const { msg, projects,getProjects } = ProjectContext;
 
@@ -26,7 +24,7 @@ const ProjectList = () => {
   }, [msg]);
 
   // Check if projects has content.
-  if (projects.length===0) return <p>No hay projectos, comienza creando uno!</p>;
+  if (projects.length===0) return <p>There's no projects, start by creating one!</p>;
 
   return (
     <ul className='listado-proyectos'>

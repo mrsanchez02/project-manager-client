@@ -69,7 +69,7 @@ const FormTask = () => {
     }
 
     //Obtener y filtrar las tareas del projecto actual.
-    getTasks(actualProject.id);
+    getTasks(actualProject._id);
 
     //Reset form
     setTask({
@@ -87,7 +87,7 @@ const FormTask = () => {
                 <input 
                     type="text"
                     className='input-text'
-                    placeholder='Nombre tarea...'
+                    placeholder='Task name...'
                     name='name'
                     onChange={handleChange}
                     value={name}
@@ -97,11 +97,11 @@ const FormTask = () => {
             <input 
               type="submit"
               className='btn btn-primario btn-submit btn-block'
-              value={taskSelected ? "Editar tarea":"Agregar tarea"}
+              value={taskSelected ? "Edit task":"Add task"}
             />
           </div>
       </form>
-      {errorTask? <p className='mensaje error'>Nombre de tarea requerido!</p>:null}
+      {errorTask? <p className='mensaje error'>Task name required!</p>:null}
     </div>
   )
 }

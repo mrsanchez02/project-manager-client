@@ -13,7 +13,7 @@ const Upperbar = () => {
 
   return (
     <header className='app-header'>
-      {user ? <p className="nombre-usuario">Hello <span>{user.name}</span></p> : null }
+      {user ? <p className="nombre-usuario">Hello, <span>{user.name}</span></p> : null }
       <nav className='nav-principal'>
           <button
             className='btn btn-blank cerrar-sesion'

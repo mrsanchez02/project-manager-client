@@ -15,7 +15,7 @@ const TaskList = () => {
   const { tasksProject } = tasksContext;
 
   // if no projects selected...
-  if(!project) return <h2>Selecciona un proyecto.</h2>
+  if(!project) return <h2>Select a project.</h2>
 
   // Array Destructuring in order to extract the actual project.
   const [actualProject] = project;
@@ -27,10 +27,10 @@ const TaskList = () => {
 
   return (
     <>
-      <h2>Proyecto: {actualProject.name}</h2>
+      <h2>Project: {actualProject.name}</h2>
       <ul className='listado-tareas'>
         {tasksProject.length  === 0 
-          ? (<li className='tarea'><p>No hay tareas </p></li>)
+          ? (<li className='tarea'><p>There's no tasks. </p></li>)
           : 
           <TransitionGroup>
             {tasksProject.map(task =>(
@@ -49,7 +49,7 @@ const TaskList = () => {
         type='button'
         className='btn btn-eliminar'
         onClick={onClickDelete}
-      >Eliminar Proyecto &times;</button>
+      >Delete Project &times;</button>
     </>
   )
 }
