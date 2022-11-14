@@ -23,3 +23,4 @@ export const GET_USER = 'GET_USER';
 export const SUCCESSFUL_LOGIN = 'SUCCESSFUL_LOGIN';
 export const ERROR_LOGIN = 'ERROR_LOGIN';
 export const LOG_OUT = 'LOG_OUT';
+export const LOADING = 'LOADING'

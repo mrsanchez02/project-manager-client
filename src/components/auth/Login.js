@@ -10,8 +10,7 @@ const Login = () => {
     const alertContext = useContext(AlertContext);
     const {alert, showAlert} = alertContext;
 
-    const authContext = useContext(AuthContext);
-    const { userLogin, msg, authenticated  } = authContext;
+    const { userLogin, msg, authenticated, loading } = useContext(AuthContext);
 
     // if user is already authenticated or a duplicated record.
     useEffect(()=>{
@@ -57,6 +56,7 @@ const Login = () => {
 
   return (
     <div className='form-usuario'>
+        {loading ? (<div className={`alerta alerta-ok`}> <span>🔃</span> Loading! </div>) : null}
         {alert ? (<div className={`alerta ${alert.category}`}> {alert.msg} </div>) : null}
         <div className="contenedor-form sombra-dark">
             <h1>Welcome</h1>

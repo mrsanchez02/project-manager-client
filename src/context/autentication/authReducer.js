@@ -4,12 +4,17 @@ import {
     GET_USER,
     SUCCESSFUL_LOGIN,
     ERROR_LOGIN,
-    LOG_OUT
+    LOG_OUT,
+    LOADING
 } from '../../types'
 
 
 const authReducer = (state, action) => {
     switch (action.type) {
+        case LOADING:
+            return {
+                loading: action.payload
+            }
         case SUCCESSFUL_LOGIN:
         case SUCCESSFUL_REGISTRATION:
             localStorage.setItem('token',action.payload.token);

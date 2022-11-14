@@ -10,7 +10,8 @@ import {
     GET_USER,
     SUCCESSFUL_LOGIN,
     ERROR_LOGIN,
-    LOG_OUT
+    LOG_OUT,
+    LOADING
 } from '../../types'
 
 const AuthState = ({children}) => {
@@ -20,7 +21,7 @@ const AuthState = ({children}) => {
         authenticated: null,
         user: null,
         msg: null,
-        loading: true
+        loading: false
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState);
@@ -28,6 +29,7 @@ const AuthState = ({children}) => {
     //fn
     const userRegistration = async data => {
         try {
+            pleaseWait(true)
             const response = await axiosClient.post('/api/users',data);
             dispatch({
                 type: SUCCESSFUL_REGISTRATION,
@@ -45,6 +47,8 @@ const AuthState = ({children}) => {
                 type: ERROR_REGISTRATION,
                 payload: alert
             })
+        } finally {
+            pleaseWait(false)
         }
     }
 
@@ -72,6 +76,7 @@ const AuthState = ({children}) => {
     // user Login
     const userLogin = async (data) => {
         try {
+            pleaseWait(true)
             const response = await axiosClient.post('/api/auth',data)
             dispatch({
                 type: SUCCESSFUL_LOGIN,
@@ -88,12 +93,21 @@ const AuthState = ({children}) => {
                 type: ERROR_LOGIN,
                 payload: alert
             })
+        } finally {
+            pleaseWait(false)
         }
     }
 
     // user Logout
     const userLogout = () => {
         dispatch({type: LOG_OUT})
+    }
+
+    const pleaseWait = (status) => {
+        dispatch({
+            type: LOADING,
+            payload: status
+        })
     }
 
 
